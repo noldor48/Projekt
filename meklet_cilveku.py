@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from rediget import rediget_cilveku
 from drest import dzest_cilveku
+from pievsasn import pievienot_sasniegumu
 
 conn = sqlite3.connect('Persons.db')
 cursor = conn.cursor()
@@ -23,6 +24,8 @@ def meklet_cilveku():
                     meklēt_btn.pack(pady=10)
                     dzest_btn = ttk.Button(root, text="Dzest", command=dzest_cilveku)
                     dzest_btn.pack(pady=10)
+                    sas_pievien = ttk.Button(root, text="Pievienot sasniegumu", command=pievienot_sasniegumu)
+                    sas_pievien.pack(pady=10)
                     ttk.Label(root, text="-----------------------------------------------------------", background="#000000", foreground="white").pack()
                     #messagebox.showinfo("Rezultats",f"Atrasts ID:{r[0]}: {r[1]} {r[2]}, {r[3]}, vecums: {r[4]}, dzimums: {r[5]}\n")
             else:
