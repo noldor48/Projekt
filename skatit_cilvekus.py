@@ -5,6 +5,7 @@ from tkinter import messagebox
 from rediget import rediget_cilveku
 from drest import dzest_cilveku
 from pievsasn import pievienot_sasniegumu
+from jaunacv import cv_izveidoshana
 
 conn = sqlite3.connect('Persons.db')
 cursor = conn.cursor()
@@ -27,6 +28,8 @@ def skatit_cilvekus():
                 dzest_btn.pack(pady=10)
                 sas_pievien = ttk.Button(root, text="Pievienot sasniegumu", command=pievienot_sasniegumu)
                 sas_pievien.pack(pady=10)
+                cv_pievien = ttk.Button(root, text="Izveidot cv", command=cv_izveidoshana)
+                cv_pievien.pack(pady=10)
                 ttk.Label(root, text="-----------------------------------------------------------", background="#000000", foreground="white").pack()
                 #messagebox.showinfo("Rezultats",f"Atrasts ID:{r[0]}: {r[1]} {r[2]}, {r[3]}, vecums: {r[4]}, dzimums: {r[5]}\n")
         else:
