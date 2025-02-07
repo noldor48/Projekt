@@ -7,9 +7,11 @@ from drest import dzest_cilveku
 from pievsasn import pievienot_sasniegumu
 from jaunacv import cv_izveidoshana
 
+#Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
 cursor = conn.cursor()
 
+#Galvena funkcija
 def meklet_cilveku():
     def sameklet_cilveku():
         vards = firstname_entry.get()
@@ -36,13 +38,14 @@ def meklet_cilveku():
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet vārdu!")
 
-
+    # Loga veidoshana
     root = Tk()
     root.title("Cilveku mekleshana")
     root.iconbitmap(default="useri.ico")
     root.geometry(f"300x250+{int((root.winfo_screenwidth())/2)-150}+{int((root.winfo_screenheight())/2)-125}")
     root.configure(bg='#000000')
 
+    #Datus ievadishanas pieprasijums
     ttk.Label(root, text="Cilveka vārds:").pack()
     firstname_entry = ttk.Entry(root)
     firstname_entry.pack()

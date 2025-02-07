@@ -6,9 +6,11 @@ from tkinter import messagebox
 from docx import Document
 from docx.shared import Inches
 
+#Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
 cursor = conn.cursor()
 
+#Galvena funkcija
 def cv_izveidoshana():
     def izveidoshana():
         id = id_entry.get()
@@ -42,12 +44,14 @@ def cv_izveidoshana():
         messagebox.showinfo("Veiksmīgi", "CV pievienots!")
         root.destroy()
 
+    # Loga veidoshana
     root = Tk()
     root.title("Cv izveidoshana")
     root.iconbitmap(default="useri.ico")
     root.geometry(f"300x150+{int((root.winfo_screenwidth())/2)-150}+{int((root.winfo_screenheight())/2)-75}")
     root.configure(bg='#000000') 
 
+    #Datus ievadishanas pieprasijums
     ttk.Label(root, text="id:").pack()
     id_entry = ttk.Entry(root)
     id_entry.pack()

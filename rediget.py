@@ -3,9 +3,11 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 
+#Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
 cursor = conn.cursor()
 
+#Galvena funkcija
 def rediget_cilveku():
     def saglabat_cilveku():
         firstname = firstname_entry.get()
@@ -23,13 +25,14 @@ def rediget_cilveku():
         else:
             messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
 
-
+    # Loga veidoshana
     root = Tk()
     root.title("Cilveku redigeshana")
     root.iconbitmap(default="useri.ico")
     root.geometry(f"300x450+{int((root.winfo_screenwidth())/2)-150}+{int((root.winfo_screenheight())/2)-225}")
     root.configure(bg='#000000')
 
+    #Datus ievadishanas pieprasijums
     ttk.Label(root, text="ID:").pack()
     id_entry = ttk.Entry(root)
     id_entry.pack()

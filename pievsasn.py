@@ -3,10 +3,11 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 
-
+#Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
 cursor = conn.cursor()
 
+#Galvena funkcija
 def pievienot_sasniegumu():
     def sasniegums_piev():
         date = datums_entry.get()
@@ -21,12 +22,15 @@ def pievienot_sasniegumu():
             root.destroy()
         else:
             messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+
+    # Loga veidoshana
     root = Tk()
     root.title("Sasnieguma pievienoshana")
     root.iconbitmap(default="useri.ico")
     root.geometry(f"400x600+{int((root.winfo_screenwidth())/2)-200}+{int((root.winfo_screenheight())/2)-300}")
     root.configure(bg='#000000') 
 
+    #Datus ievadishanas pieprasijums
     ttk.Label(root, text="Cilveka ID:").pack()
     cilveka_id_entry = ttk.Entry(root)
     cilveka_id_entry.pack()
