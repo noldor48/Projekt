@@ -1,7 +1,9 @@
 import sqlite3
+import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+from tkcalendar import Calendar
 
 #Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
@@ -9,8 +11,19 @@ cursor = conn.cursor()
 
 #Galvena funkcija
 def pievienot_sasniegumu():
+    def calendar_view():
+        def print_sel():
+            print(cal.selection_get())
+            global atime
+            atime = cal.selection_get()
+        top = tk.Toplevel(root)
+        cal = Calendar(top,
+                    font="Arial 14", selectmode='day',
+                    cursor="hand1", year=2025, month=2, day=5)
+        cal.pack(fill="both", expand=True)
+        ttk.Button(top, text="ok", command=print_sel).pack()
     def sasniegums_piev():
-        date = datums_entry.get()
+        date = atime
         vieta = vieta_entry.get()
         sasniegums = sasniegums_entry.get()
         perspecid = cilveka_id_entry.get()
@@ -36,8 +49,7 @@ def pievienot_sasniegumu():
     cilveka_id_entry.pack()
 
     ttk.Label(root, text="Datums:").pack()
-    datums_entry = ttk.Entry(root)
-    datums_entry.pack()
+    birthday_entry = ttk.Button(root, text='Atvert kalendari', command= calendar_view).pack(padx=10, pady=10)
 
     ttk.Label(root, text="Vieta:").pack()
     vieta_entry = ttk.Entry(root)

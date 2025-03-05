@@ -18,14 +18,11 @@ def cv_izveidoshana():
         cursor.execute("SELECT * FROM Personas WHERE person_id LIKE ?", (f"%{id}%",))
         rezultati = cursor.fetchall()
         if rezultati:
-            person = ""
             for r in rezultati:
-                person += f"{r[1]} {r[2]}\n"
-        if rezultati:
-            info = ""
-            for r in rezultati:
-                info += f"Dzimsanas datums: {r[3]}\nVecums: {r[4]}\nDzimums: {r[5]}\nemail: {r[6]}\n"
-
+                person = f"{r[1]} {r[2]}\n"
+                info = f"Dzimsanas datums: {r[3]}\nVecums: {r[4]}\nDzimums: {r[5]}\nemail: {r[6]}\n"
+                print(f"TYPE:{type(r[7])}")
+                pic =r[7]
         cursor.execute("SELECT * FROM Sasniegumi WHERE person_id LIKE ?", (f"%{id}%",))
         sasniegumi = cursor.fetchall()
         if sasniegumi:
@@ -37,8 +34,9 @@ def cv_izveidoshana():
 
         document = Document()
         document.add_heading(person, 0)
-        p = document.add_paragraph(info)
-        a = document.add_paragraph(sas)
+        document.add_picture(pic, width=Inches(1.25))
+        document.add_paragraph(info)
+        document.add_paragraph(sas)
         document.add_page_break()
         document.save('demo.docx')
         messagebox.showinfo("Veiksmīgi", "CV pievienots!")

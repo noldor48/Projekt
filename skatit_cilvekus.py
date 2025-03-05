@@ -2,10 +2,10 @@ import sqlite3
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-from rediget import rediget_cilveku
-from drest import dzest_cilveku
-from pievsasn import pievienot_sasniegumu
-from jaunacv import cv_izveidoshana
+from rediget_personu import rediget_cilveku
+from dzest_cilveku import dzest_cilveku
+from pievienot_sasniegumu import pievienot_sasniegumu
+from jauna_cv import cv_izveidoshana
 
 #Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
@@ -18,8 +18,6 @@ def skatit_cilvekus():
         rezultati = cursor.fetchall()
         if rezultati:
             rezultati_str = ""
-            scroll_bar = Scrollbar(root) 
-            scroll_bar.pack( side = RIGHT, fill = Y )
             ttk.Label(root, text="-----------------------------------------------------------", background="#000000", foreground="white").pack()
             for r in rezultati:
                 rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}, {r[4]}, {r[5]}, {r[6]}\n"
@@ -41,6 +39,6 @@ def skatit_cilvekus():
     root.title("Cilveki")
     root.iconbitmap(default="useri.ico")
     root.geometry(f"300x600+{int((root.winfo_screenwidth())/2)-150}+{int((root.winfo_screenheight())/2)-300}")
-    root.configure(bg='#000000') 
+    root.configure(bg='#000000')
 
     opa()

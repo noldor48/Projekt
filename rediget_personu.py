@@ -1,7 +1,10 @@
 import sqlite3
+import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+from tkcalendar import Calendar
+from datetime import datetime
 
 #Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
@@ -9,11 +12,24 @@ cursor = conn.cursor()
 
 #Galvena funkcija
 def rediget_cilveku():
+    def calendar_view():
+        def print_sel():
+            print(cal.selection_get())
+            global atime
+            atime = cal.selection_get()
+        top = tk.Toplevel(root)
+        cal = Calendar(top,
+                    font="Arial 14", selectmode='day',
+                    cursor="hand1", year=2025, month=2, day=5)
+        cal.pack(fill="both", expand=True)
+        ttk.Button(top, text="ok", command=print_sel).pack()
+
     def saglabat_cilveku():
         firstname = firstname_entry.get()
         lastname = lastname_entry.get()
-        birthday = birthday_entry.get()
-        age = age_entry.get()
+        birthday = atime
+        atime1 = str(atime)
+        age = int(datetime.now().year) - int(atime1[0:4])
         gender = gender_entry.get()
         email = email_entry.get()
         personid = id_entry.get()
@@ -45,13 +61,8 @@ def rediget_cilveku():
     lastname_entry = ttk.Entry(root)
     lastname_entry.pack()
 
-    ttk.Label(root, text="Dzimšanas gads:").pack()
-    birthday_entry = ttk.Entry(root)
-    birthday_entry.pack()
-
-    ttk.Label(root, text="Vecums:").pack()
-    age_entry = ttk.Entry(root)
-    age_entry.pack()
+    ttk.Label(root, text="Dzimšanas datums:").pack()
+    birthday_entry = ttk.Button(root, text='Atvert kalendari', command= calendar_view).pack(padx=10, pady=10)
 
     ttk.Label(root, text="Dzimums:").pack()
     gender_entry = ttk.Entry(root)

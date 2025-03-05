@@ -2,10 +2,10 @@ import sqlite3
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-from rediget import rediget_cilveku
-from drest import dzest_cilveku
-from pievsasn import pievienot_sasniegumu
-from jaunacv import cv_izveidoshana
+from rediget_personu import rediget_cilveku
+from dzest_cilveku import dzest_cilveku
+from pievienot_sasniegumu import pievienot_sasniegumu
+from jauna_cv import cv_izveidoshana
 
 #Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
@@ -32,7 +32,6 @@ def meklet_cilveku():
                     cv_pievien = ttk.Button(root, text="Izveidot cv", command=cv_izveidoshana)
                     cv_pievien.pack(pady=10)
                     ttk.Label(root, text="-----------------------------------------------------------", background="#000000", foreground="white").pack()
-                    #messagebox.showinfo("Rezultats",f"Atrasts ID:{r[0]}: {r[1]} {r[2]}, {r[3]}, vecums: {r[4]}, dzimums: {r[5]}\n")
             else:
                 messagebox.showinfo("Rezultāti", "Netika atrasts neviens cilveks.")
         else:

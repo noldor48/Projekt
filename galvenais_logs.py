@@ -13,15 +13,15 @@ root.configure(bg='#000000')
 
 #Pogas
 btn1 = ttk.Button(text="Pievienot cilveku", command=pievienot_cilveku)
-btn1.pack(anchor="center", padx=6, pady=6)
+btn1.pack(anchor="center", padx=6, pady=6, ipady=0, ipadx=20)
 
 btn2 = ttk.Button(text="Meklet cilveku", command=meklet_cilveku)
-btn2.pack(anchor="center", padx=6, pady=6)
+btn2.pack(anchor="center", padx=6, pady=6, ipady=0, ipadx=20)
 
 btn3 = ttk.Button(text="Skatit cilvekus", command=skatit_cilvekus)
-btn3.pack(anchor="center", padx=6, pady=6)
+btn3.pack(anchor="center", padx=6, pady=6, ipady=0, ipadx=20)
 
 btn3 = ttk.Button(text="Iziet", command=exit)
-btn3.pack(anchor="center", padx=6, pady=6)
+btn3.pack(anchor="center", padx=6, pady=6, ipady=0, ipadx=20)
 
 root.mainloop()
