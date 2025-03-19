@@ -21,7 +21,7 @@ def skatit_cilvekus():
             ttk.Label(root, text="-----------------------------------------------------------", background="#000000", foreground="white").pack()
             for r in rezultati:
                 rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}, {r[4]}, {r[5]}, {r[6]}\n"
-                ttk.Label(root, text=f"Atrasts ID:{r[0]}\nVards uzvards: {r[1]} {r[2]}\nDzimsanas datums: {r[3]}\nvecums: {r[4]}\ndzimums: {r[5]}\nemail: {r[6]}", width=50).pack()
+                ttk.Label(root, text=f"Atrasts ID:{r[0]}\nVards uzvards: {r[1]} {r[2]}\nDzimsanas datums: {r[3]}\nvecums: {r[4]}\ndzimums: {r[5]}\nemail: {r[6]}", width=50, background="gold").pack()
                 meklēt_btn = ttk.Button(root, text="Redigiet", command=rediget_cilveku)
                 meklēt_btn.pack(pady=10)
                 dzest_btn = ttk.Button(root, text="Dzest", command=dzest_cilveku)

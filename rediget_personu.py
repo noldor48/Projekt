@@ -5,6 +5,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkcalendar import Calendar
 from datetime import datetime
+import re
 
 #Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
@@ -17,6 +18,7 @@ def rediget_cilveku():
             print(cal.selection_get())
             global atime
             atime = cal.selection_get()
+            top.destroy()
         top = tk.Toplevel(root)
         cal = Calendar(top,
                     font="Arial 14", selectmode='day',
@@ -33,13 +35,19 @@ def rediget_cilveku():
         gender = gender_entry.get()
         email = email_entry.get()
         personid = id_entry.get()
-        if firstname and lastname and birthday: #.isdigit()
-            cursor.execute('''UPDATE Personas SET firstname = ?, lastname = ?, birthday = ?, age = ?, gender = ?, email = ? where person_id = ?''', (firstname, lastname, birthday, age, gender, email, personid))
-            conn.commit()
-            messagebox.showinfo("Veiksmīgi", "Cilveks redigets!")
-            root.destroy()
+
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+            
+        if re.match(pattern, email):
+            if firstname and lastname and birthday: 
+                cursor.execute('''UPDATE Personas SET firstname = ?, lastname = ?, birthday = ?, age = ?, gender = ?, email = ? where person_id = ?''', (firstname, lastname, birthday, age, gender, email, personid))
+                conn.commit()
+                messagebox.showinfo("Veiksmīgi", "Cilveks redigets!")
+                root.destroy()
+            else:
+                messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
         else:
-            messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+            messagebox.showerror("Rezultāts", "E-pasta adrese nav derīga!")
 
     # Loga veidoshana
     root = Tk()
@@ -49,26 +57,27 @@ def rediget_cilveku():
     root.configure(bg='#000000')
 
     #Datus ievadishanas pieprasijums
-    ttk.Label(root, text="ID:").pack()
+    ttk.Label(root, text="ID:", background="gold").pack()
     id_entry = ttk.Entry(root)
     id_entry.pack()
 
-    ttk.Label(root, text="Vārds:").pack()
+    ttk.Label(root, text="Vārds:", background="gold").pack()
     firstname_entry = ttk.Entry(root)
     firstname_entry.pack()
 
-    ttk.Label(root, text="Uzvārds:").pack()
+    ttk.Label(root, text="Uzvārds:", background="gold").pack()
     lastname_entry = ttk.Entry(root)
     lastname_entry.pack()
 
-    ttk.Label(root, text="Dzimšanas datums:").pack()
+    ttk.Label(root, text="Dzimšanas datums:", background="gold").pack()
     birthday_entry = ttk.Button(root, text='Atvert kalendari', command= calendar_view).pack(padx=10, pady=10)
 
-    ttk.Label(root, text="Dzimums:").pack()
-    gender_entry = ttk.Entry(root)
-    gender_entry.pack()
+    ttk.Label(root, text="Dzimums:", background="gold").pack()
+    dzimums = ["Vīrietis", "Sieviete"]
+    gender_entry = ttk.Combobox(root,values=dzimums)
+    gender_entry.pack(padx=10, pady=10)
 
-    ttk.Label(root, text="email:").pack()
+    ttk.Label(root, text="email:", background="gold").pack()
     email_entry = ttk.Entry(root)
     email_entry.pack()
 

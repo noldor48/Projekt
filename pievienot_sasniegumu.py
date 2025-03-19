@@ -44,18 +44,18 @@ def pievienot_sasniegumu():
     root.configure(bg='#000000') 
 
     #Datus ievadishanas pieprasijums
-    ttk.Label(root, text="Cilveka ID:").pack()
+    ttk.Label(root, text="Cilveka ID:", background="gold").pack()
     cilveka_id_entry = ttk.Entry(root)
     cilveka_id_entry.pack()
 
-    ttk.Label(root, text="Datums:").pack()
+    ttk.Label(root, text="Datums:", background="gold").pack()
     birthday_entry = ttk.Button(root, text='Atvert kalendari', command= calendar_view).pack(padx=10, pady=10)
 
-    ttk.Label(root, text="Vieta:").pack()
+    ttk.Label(root, text="Vieta:", background="gold").pack()
     vieta_entry = ttk.Entry(root)
     vieta_entry.pack()
 
-    ttk.Label(root, text="Sasniegums:").pack()
+    ttk.Label(root, text="Sasniegums:", background="gold").pack()
     sasniegums_entry = ttk.Entry(root)
     sasniegums_entry.pack()
 

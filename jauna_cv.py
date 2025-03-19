@@ -50,7 +50,7 @@ def cv_izveidoshana():
     root.configure(bg='#000000') 
 
     #Datus ievadishanas pieprasijums
-    ttk.Label(root, text="id:").pack()
+    ttk.Label(root, text="id:", background="gold").pack()
     id_entry = ttk.Entry(root)
     id_entry.pack()
 

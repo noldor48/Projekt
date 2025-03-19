@@ -12,16 +12,16 @@ root.geometry(f"300x150+{int((root.winfo_screenwidth())/2)-150}+{int((root.winfo
 root.configure(bg='#000000')
 
 #Pogas
-btn1 = ttk.Button(text="Pievienot cilveku", command=pievienot_cilveku)
-btn1.pack(anchor="center", padx=6, pady=6, ipady=0, ipadx=20)
+btn1 = ttk.Button(text="Pievienot cilveku", command=pievienot_cilveku, width=40)
+btn1.place(relx = 0.5 , rely = 0.2, anchor = CENTER)
 
-btn2 = ttk.Button(text="Meklet cilveku", command=meklet_cilveku)
-btn2.pack(anchor="center", padx=6, pady=6, ipady=0, ipadx=20)
+btn2 = ttk.Button(text="Meklet cilveku", command=meklet_cilveku, width=40)
+btn2.place(relx = 0.5 , rely = 0.4, anchor = CENTER)
 
-btn3 = ttk.Button(text="Skatit cilvekus", command=skatit_cilvekus)
-btn3.pack(anchor="center", padx=6, pady=6, ipady=0, ipadx=20)
+btn3 = ttk.Button(text="Skatit cilvekus", command=skatit_cilvekus, width=40)
+btn3.place(relx = 0.5 , rely = 0.6, anchor = CENTER)
 
-btn3 = ttk.Button(text="Iziet", command=exit)
-btn3.pack(anchor="center", padx=6, pady=6, ipady=0, ipadx=20)
+btn4 = ttk.Button(text="Iziet", command=exit, width=40)
+btn4.place(relx = 0.5 , rely = 0.8, anchor = CENTER)
 
 root.mainloop()

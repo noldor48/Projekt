@@ -8,7 +8,7 @@ conn = sqlite3.connect('Persons.db')
 cursor = conn.cursor()
 
 #Galvena funkcija
-def dzest_cilveku():
+def dzest_cilveku():  
     def dzessana_cilveku():
         personid = id_entry.get()
         if personid:
@@ -19,6 +19,10 @@ def dzest_cilveku():
         else:
             messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
 
+    #res=messagebox.askquestion('Dzest cilveku', 'Jus patiesam gribat vinju izdzest?')
+    #if res == 'yes' :
+    #    dzessana_cilveku()
+
     # Loga veidoshana
     root = Tk()
     root.title("Cilveku dzesšana")
@@ -27,7 +31,7 @@ def dzest_cilveku():
     root.configure(bg='#000000')
 
     #Datus ievadishanas pieprasijums
-    ttk.Label(root, text="ID:").pack()
+    ttk.Label(root, text="ID:", background="gold").pack()
     id_entry = ttk.Entry(root)
     id_entry.pack()
 
