@@ -5,6 +5,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from docx import Document
 from docx.shared import Inches
+from io import BytesIO
 
 #Datubazes atvershana
 conn = sqlite3.connect('Persons.db')
@@ -21,8 +22,7 @@ def cv_izveidoshana():
             for r in rezultati:
                 person = f"{r[1]} {r[2]}\n"
                 info = f"Dzimsanas datums: {r[3]}\nVecums: {r[4]}\nDzimums: {r[5]}\nemail: {r[6]}\n"
-                print(f"TYPE:{type(r[7])}")
-                pic =r[7]
+                pic = BytesIO(r[7])
         cursor.execute("SELECT * FROM Sasniegumi WHERE person_id LIKE ?", (f"%{id}%",))
         sasniegumi = cursor.fetchall()
         if sasniegumi:
