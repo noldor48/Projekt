@@ -5,6 +5,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from tkcalendar import Calendar
 from datetime import datetime
+from tkinter import filedialog
 import re
 
 #Datubazes atvershana
@@ -26,28 +27,38 @@ def pievienot_cilveku():
         cal.pack(fill="both", expand=True)
         ttk.Button(top, text="ok", command=print_sel).pack()
 
-    def saglabat_cilveku():
-        firstname = firstname_entry.get()
-        lastname = lastname_entry.get()
-        birthday = atime
-        atime1 = str(atime)
-        age = int(datetime.now().year) - int(atime1[0:4])
-        gender = gender_entry.get()
-        email = email_entry.get()
+    def open_image():
+        global fileimg
+        img = filedialog.askopenfilename(title="Image", filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.ico")])
+        with open(img, "rb") as file:
+            image_bytes = file.read()
+        fileimg = image_bytes
+        print(type(fileimg))
 
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-            
-        if re.match(pattern, email):
+    def saglabat_cilveku():
+        try:
+            firstname = firstname_entry.get()
+            lastname = lastname_entry.get()
+            birthday = atime
+            atime1 = str(atime)
+            age = int(datetime.now().year) - int(atime1[0:4])
+            gender = gender_entry.get()
+            email = email_entry.get()
+            picture = fileimg
+
+            pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'  
             if firstname and lastname and birthday:
-                cursor.execute('''INSERT INTO Personas (firstname, lastname, birthday, age, gender, email)VALUES (?, ?, ?, ?, ?, ?)''', (firstname, lastname, birthday, age, gender, email))
-                conn.commit()
-                messagebox.showinfo("Veiksmīgi", "Cilveks pievienots!")
-                root.destroy()
+                if re.match(pattern, email):
+                    cursor.execute('''INSERT INTO Personas (firstname, lastname, birthday, age, gender, email, photo)VALUES (?, ?, ?, ?, ?, ?, ?)''', (firstname, lastname, birthday, age, gender, email, picture))
+                    conn.commit()
+                    messagebox.showinfo("Veiksmīgi", "Cilveks pievienots!")
+                    root.destroy()
+                else:
+                    messagebox.showerror("Rezultāts", "E-pasta adrese nav derīga!")
             else:
                 messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
-        else:
-            messagebox.showerror("Rezultāts", "E-pasta adrese nav derīga!")
-
+        except:
+            messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
     # Loga veidoshana
     root = Tk()
     root.title("Cilveku pievienoshana")
@@ -76,5 +87,10 @@ def pievienot_cilveku():
     email_entry = ttk.Entry(root)
     email_entry.pack()
 
+    open_button = tk.Button(root, text="Pievienot img", command=open_image)
+    open_button.pack(pady=10)
+
     saglabat_btn = ttk.Button(root, text="Saglabāt", command=saglabat_cilveku)
     saglabat_btn.pack(pady=10)
+
+    root.mainloop()

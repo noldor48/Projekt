@@ -14,33 +14,37 @@ cursor = conn.cursor()
 #Galvena funkcija
 def cv_izveidoshana():
     def izveidoshana():
-        id = id_entry.get()
+        try:
+            id = id_entry.get()
 
-        cursor.execute("SELECT * FROM Personas WHERE person_id LIKE ?", (f"%{id}%",))
-        rezultati = cursor.fetchall()
-        if rezultati:
-            for r in rezultati:
-                person = f"{r[1]} {r[2]}\n"
-                info = f"Dzimsanas datums: {r[3]}\nVecums: {r[4]}\nDzimums: {r[5]}\nemail: {r[6]}\n"
-                pic = BytesIO(r[7])
-        cursor.execute("SELECT * FROM Sasniegumi WHERE person_id LIKE ?", (f"%{id}%",))
-        sasniegumi = cursor.fetchall()
-        if sasniegumi:
-            sas = ""
-            num=1
-            for s in sasniegumi:
-                sas += f"{str(num)}.Sasniegums\nDatums: {s[1]}\nVieta: {s[2]}\nSasniegums: {s[3]}\n"
-                num+=1
+            cursor.execute("SELECT * FROM Personas WHERE person_id LIKE ?", (f"%{id}%",))
+            rezultati = cursor.fetchall()
+            if rezultati:
+                for r in rezultati:
+                    person = f"{r[1]} {r[2]}\n"
+                    info = f"Dzimsanas datums: {r[3]}\nVecums: {r[4]}\nDzimums: {r[5]}\nemail: {r[6]}\n"
+                    pic = BytesIO(r[7])
 
-        document = Document()
-        document.add_heading(person, 0)
-        document.add_picture(pic, width=Inches(1.25))
-        document.add_paragraph(info)
-        document.add_paragraph(sas)
-        document.add_page_break()
-        document.save('demo.docx')
-        messagebox.showinfo("Veiksmīgi", "CV pievienots!")
-        root.destroy()
+            cursor.execute("SELECT * FROM Sasniegumi WHERE person_id LIKE ?", (f"%{id}%",))
+            sasniegumi = cursor.fetchall()
+            if sasniegumi:
+                sas = ""
+                num=1
+                for s in sasniegumi:
+                    sas += f"{str(num)}.Sasniegums\nDatums: {s[1]}\nVieta: {s[2]}\nSasniegums: {s[3]}\n"
+                    num+=1
+            
+            document = Document()
+            document.add_heading(person, 0)
+            document.add_picture(pic, width=Inches(1.25))
+            document.add_paragraph(info)
+            document.add_paragraph(sas)
+            document.add_page_break()
+            document.save('demo.docx')
+            messagebox.showinfo("Veiksmīgi", "CV pievienots!")
+            root.destroy()
+        except Exception as e:
+            messagebox.showerror("Kļūda", f"Kaut kas nav kartiba! {e}")
 
     # Loga veidoshana
     root = Tk()
