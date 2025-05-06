@@ -1,26 +1,27 @@
-import tkinter as tk
-from tkinter import filedialog
-from PIL import Image, ImageTk
+from tkinter import *
+from tkinter import ttk
+import tkinter
+root = tkinter.Tk()
 
-def open_image():
-    file_path = filedialog.askopenfilename(title="Open Image File", filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.ico")])
-    if file_path:
-        display_image(file_path)
-        
-def display_image(file_path):
-    image = Image.open(file_path)
-    photo = ImageTk.PhotoImage(image)
-    image_label.config(image=photo)
-    image_label.photo = photo
-    status_label.config(text=f"Image loaded: {file_path}")
+canvas = tkinter.Canvas(root, borderwidth=0, background="#ffffff")
+frame= tkinter.Frame(canvas, background="#ffffff")
+vsb = tkinter.Scrollbar(root, orient="vertical", command=canvas.yview)
+canvas.configure(yscrollcommand=vsb.set)
+vsb.pack(side="right", fill="y")
+canvas.pack(side="left", fill="both", expand=True)
+canvas.create_window((4, 4), window=frame, anchor="nw")
 
-root = tk.Tk()
-root.title("Simple Image Viewer")
-text_widget = tk.Text(root, wrap=tk.WORD, height=15, width=35)
-open_button = tk.Button(root, text="Open Image", command=open_image)
-open_button.pack(padx=20, pady=10)
-image_label = tk.Label(root)
-image_label.pack(padx=20, pady=20)
-status_label = tk.Label(root, text="", padx=20, pady=10)
-status_label.pack()
+for i in range(20):
+    lbl = tkinter.Label(frame, text=f"Label {i}")
+    lbl.pack(side="top")
+
+canvas.update_idletasks() 
+canvas.configure(scrollregion=canvas.bbox("all"))
+
+canvas = Canvas(bg="white", width=250, height=200)
+canvas.pack(anchor=CENTER, expand=1)
+ 
+btn = ttk.Button(text="Click")
+canvas.create_window(10, 20, anchor=NW, window=btn, width=100, height=50)
+
 root.mainloop()
